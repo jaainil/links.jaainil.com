@@ -1,26 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BrickPortrait from '../components/BrickPortrait.astro';
-import RedditIcon from '../components/RedditIcon.tsx';
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Github,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  MessageCircleHeart,
-  Package,
-} from 'lucide-react';
+import Icon, { type IconName } from '../components/Icon.astro';
 
-const links = [
+interface LinkItem {
+  number: string;
+  title: string;
+  description: string;
+  href: string;
+  icon: IconName;
+  tone: 'blue' | 'red' | 'yellow' | 'gray';
+}
+
+const links: LinkItem[] = [
   {
     number: "01",
     title: "Explore my portfolio",
     description: "Selected products, experiments & case studies",
     href: "https://jaainil.com",
-    icon: BriefcaseBusiness,
+    icon: "briefcase-business",
     tone: "blue",
   },
   {
@@ -28,7 +26,7 @@ const links = [
     title: "GitHub",
     description: "Open-source builds & Dokploy templates",
     href: "https://github.com/jaainil",
-    icon: Github,
+    icon: "github",
     tone: "red",
   },
   {
@@ -36,7 +34,7 @@ const links = [
     title: "npm packages",
     description: "Writenex CMS & more, published as ~imjp",
     href: "https://www.npmjs.com/~imjp",
-    icon: Package,
+    icon: "package",
     tone: "yellow",
   },
   {
@@ -44,7 +42,7 @@ const links = [
     title: "LinkedIn",
     description: "Experience, updates and conversations",
     href: "https://www.linkedin.com/in/jaainil/",
-    icon: Linkedin,
+    icon: "linkedin",
     tone: "gray",
   },
   {
@@ -52,7 +50,7 @@ const links = [
     title: "Instagram",
     description: "The main account — life outside the build",
     href: "https://www.instagram.com/jaainil/",
-    icon: Instagram,
+    icon: "instagram",
     tone: "blue",
   },
   {
@@ -60,7 +58,7 @@ const links = [
     title: "Instagram — where I yapp",
     description: "AI, dev life & hot takes on @yapping.jaainil",
     href: "https://www.instagram.com/yapping.jaainil/",
-    icon: MessageCircleHeart,
+    icon: "message-circle-heart",
     tone: "red",
   },
   {
@@ -68,7 +66,7 @@ const links = [
     title: "Reddit",
     description: "u/enough_jainil — occasional posts & r/AI_India",
     href: "https://www.reddit.com/user/enough_jainil/",
-    icon: RedditIcon,
+    icon: "reddit",
     tone: "yellow",
   },
 ];
@@ -102,7 +100,7 @@ const links = [
             Product-minded developer building useful things, one piece at a time.
           </p>
           <p class="mt-3 flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
-            <MapPin size={16} strokeWidth={2.5} /> Anand, Gujarat, India
+            <Icon name="map-pin" size={16} strokeWidth={2.5} /> Anand, Gujarat, India
           </p>
         </div>
         <BrickPortrait />
@@ -116,7 +114,7 @@ const links = [
           <span class="text-xs font-black">{links.length} PIECES</span>
         </div>
         <div class="space-y-4">
-          {links.map(({ number, title, description, href, icon: Icon, tone }) => (
+          {links.map(({ number, title, description, href, icon, tone }) => (
             <a
               href={href}
               target="_blank"
@@ -125,7 +123,7 @@ const links = [
             >
               <span class={`piece-number piece-${tone}`}>{number}</span>
               <span class="piece-icon">
-                <Icon size={22} strokeWidth={2.5} />
+                <Icon name={icon} size={22} strokeWidth={2.5} />
               </span>
               <span class="min-w-0 flex-1">
                 <span class="block text-base font-black sm:text-lg">{title}</span>
@@ -133,7 +131,7 @@ const links = [
                   {description}
                 </span>
               </span>
-              <ArrowUpRight className="piece-arrow" size={22} strokeWidth={2.5} />
+              <Icon name="arrow-up-right" class="piece-arrow" size={22} strokeWidth={2.5} />
             </a>
           ))}
         </div>
@@ -145,7 +143,7 @@ const links = [
           <h2 class="mt-1 text-2xl font-black">Let’s build it together.</h2>
         </div>
         <a class="email-button" href="mailto:jainilprajapati9@gmail.com">
-          <Mail size={19} strokeWidth={2.5} /> Say hello
+          <Icon name="mail" size={19} strokeWidth={2.5} /> Say hello
         </a>
       </section>
 
