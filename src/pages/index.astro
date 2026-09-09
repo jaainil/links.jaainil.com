@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BrickPortrait from '../components/BrickPortrait.astro';
+import RedditIcon from '../components/RedditIcon.tsx';
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageCircleHeart,
+  Package,
+} from 'lucide-react';
+
+const links = [
+  {
+    number: "01",
+    title: "Explore my portfolio",
+    description: "Selected products, experiments & case studies",
+    href: "https://jaainil.com",
+    icon: BriefcaseBusiness,
+    tone: "blue",
+  },
+  {
+    number: "02",
+    title: "GitHub",
+    description: "Open-source builds & Dokploy templates",
+    href: "https://github.com/jaainil",
+    icon: Github,
+    tone: "red",
+  },
+  {
+    number: "03",
+    title: "npm packages",
+    description: "Writenex CMS & more, published as ~imjp",
+    href: "https://www.npmjs.com/~imjp",
+    icon: Package,
+    tone: "yellow",
+  },
+  {
+    number: "04",
+    title: "LinkedIn",
+    description: "Experience, updates and conversations",
+    href: "https://www.linkedin.com/in/jaainil/",
+    icon: Linkedin,
+    tone: "gray",
+  },
+  {
+    number: "05",
+    title: "Instagram",
+    description: "The main account — life outside the build",
+    href: "https://www.instagram.com/jaainil/",
+    icon: Instagram,
+    tone: "blue",
+  },
+  {
+    number: "06",
+    title: "Instagram — where I yapp",
+    description: "AI, dev life & hot takes on @yapping.jaainil",
+    href: "https://www.instagram.com/yapping.jaainil/",
+    icon: MessageCircleHeart,
+    tone: "red",
+  },
+  {
+    number: "07",
+    title: "Reddit",
+    description: "u/enough_jainil — occasional posts & r/AI_India",
+    href: "https://www.reddit.com/user/enough_jainil/",
+    icon: RedditIcon,
+    tone: "yellow",
+  },
+];
+---
+
+<Layout
+  title="Jainil Prajapati — Links"
+  description="Find Jainil Prajapati's portfolio, open source, npm packages, and social profiles."
+>
+  <main class="min-h-screen overflow-hidden bg-background text-foreground">
+    <div class="mx-auto w-full max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pt-8">
+      <header class="mb-8 flex items-center justify-between border-b-2 border-keyline pb-4">
+        <a href="#top" class="flex items-center gap-2 font-black" aria-label="Jainil home">
+          <span class="logo-brick">
+            <span></span>
+          </span>
+          JP
+        </a>
+        <span class="kit-label">BUILD KIT · 2026</span>
+      </header>
+
+      <section id="top" class="relative mb-9 grid grid-cols-[1fr_auto] items-center gap-5">
+        <div>
+          <span class="status-chip">AVAILABLE FOR BUILDS</span>
+          <h1 class="mt-5 text-5xl font-black leading-[0.92] sm:text-7xl">
+            JAINIL
+            <br />
+            PRAJAPATI
+          </h1>
+          <p class="mt-4 max-w-md text-base font-medium text-secondary-foreground sm:text-lg">
+            Product-minded developer building useful things, one piece at a time.
+          </p>
+          <p class="mt-3 flex items-center gap-1.5 text-sm font-bold text-muted-foreground">
+            <MapPin size={16} strokeWidth={2.5} /> Anand, Gujarat, India
+          </p>
+        </div>
+        <BrickPortrait />
+      </section>
+
+      <section aria-labelledby="links-heading">
+        <div class="mb-4 flex items-end justify-between">
+          <h2 id="links-heading" class="text-2xl font-black sm:text-3xl">
+            PICK A PIECE
+          </h2>
+          <span class="text-xs font-black">{links.length} PIECES</span>
+        </div>
+        <div class="space-y-4">
+          {links.map(({ number, title, description, href, icon: Icon, tone }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              class="link-piece group"
+            >
+              <span class={`piece-number piece-${tone}`}>{number}</span>
+              <span class="piece-icon">
+                <Icon size={22} strokeWidth={2.5} />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block text-base font-black sm:text-lg">{title}</span>
+                <span class="mt-0.5 block text-xs font-medium text-muted-foreground sm:text-sm">
+                  {description}
+                </span>
+              </span>
+              <ArrowUpRight className="piece-arrow" size={22} strokeWidth={2.5} />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="contact-sheet mt-10">
+        <div>
+          <span class="block text-xs font-black">HAVE A PROJECT IN MIND?</span>
+          <h2 class="mt-1 text-2xl font-black">Let’s build it together.</h2>
+        </div>
+        <a class="email-button" href="mailto:jainilprajapati9@gmail.com">
+          <Mail size={19} strokeWidth={2.5} /> Say hello
+        </a>
+      </section>
+
+      <footer class="mt-9 flex items-center justify-between text-xs font-bold">
+        <span>© 2026 JAINIL PRAJAPATI</span>
+        <span>MADE WITH 42 PIECES</span>
+      </footer>
+    </div>
+  </main>
+</Layout>
