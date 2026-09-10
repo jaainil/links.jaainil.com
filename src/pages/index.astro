@@ -70,11 +70,56 @@ const links: LinkItem[] = [
     tone: "yellow",
   },
 ];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://links.jaainil.com/#website",
+      "url": "https://links.jaainil.com/",
+      "name": "Jainil Prajapati — Links",
+      "description": "Find Jainil Prajapati's portfolio, open source, npm packages, and social profiles.",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://links.jaainil.com/#webpage",
+      "url": "https://links.jaainil.com/",
+      "name": "Jainil Prajapati — Links",
+      "isPartOf": {
+        "@id": "https://links.jaainil.com/#website",
+      },
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://links.jaainil.com/#person",
+        "name": "Jainil Prajapati",
+        "jobTitle": "Product-minded developer",
+        "url": "https://jaainil.com",
+        "image": "https://links.jaainil.com/og-image.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Anand",
+          "addressRegion": "Gujarat",
+          "addressCountry": "India",
+        },
+        "sameAs": [
+          "https://github.com/jaainil",
+          "https://www.npmjs.com/~imjp",
+          "https://www.linkedin.com/in/jaainil/",
+          "https://www.instagram.com/jaainil/",
+          "https://www.instagram.com/yapping.jaainil/",
+          "https://www.reddit.com/user/enough_jainil/",
+        ],
+      },
+    },
+  ],
+};
 ---
 
 <Layout
   title="Jainil Prajapati — Links"
   description="Find Jainil Prajapati's portfolio, open source, npm packages, and social profiles."
+  structuredData={structuredData}
 >
   <main class="min-h-screen overflow-hidden bg-background text-foreground">
     <div class="mx-auto w-full max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pt-8">
@@ -118,7 +163,7 @@ const links: LinkItem[] = [
             <a
               href={href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               class="link-piece group"
             >
               <span class={`piece-number piece-${tone}`}>{number}</span>

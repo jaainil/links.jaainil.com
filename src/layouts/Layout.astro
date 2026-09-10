@@ -1,17 +1,30 @@
 ---
+import { SEO } from "astro-seo";
 import '../styles.css';
 
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string | null;
+  noindex?: boolean;
+  nofollow?: boolean;
+  image?: string;
+  structuredData?: Record<string, unknown> | null;
 }
 
 const {
   title = "Jainil Prajapati — Links",
   description = "Find Jainil Prajapati's portfolio, open source, npm packages, and social profiles.",
+  canonical,
+  noindex = false,
+  nofollow = false,
+  image = "https://links.jaainil.com/og-image.png",
+  structuredData = null,
 } = Astro.props;
 
-const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://links.jaainil.com";
+const pageUrl = `${siteUrl}${Astro.url.pathname}`;
+const canonicalURL = canonical !== undefined ? canonical : pageUrl;
 ---
 
 <!doctype html>
@@ -19,24 +32,49 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).toStri
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="canonical" href={canonicalURL} />
 
-    <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-    <meta name="author" content="Jainil Prajapati" />
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL}
+      noindex={noindex}
+      nofollow={nofollow}
+      openGraph={{
+        basic: {
+          title,
+          type: "website",
+          image,
+          url: pageUrl,
+        },
+        optional: {
+          siteName: "Jainil Prajapati — Links",
+          description,
+          locale: "en_US",
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@jaainil",
+        creator: "@jaainil",
+        title,
+        description,
+        image,
+      }}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        ],
+        meta: [
+          { name: "author", content: "Jainil Prajapati" },
+          { name: "theme-color", content: "#aee1ff" },
+        ],
+      }}
+    />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
 
     <!-- Google Fonts: Rubik -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

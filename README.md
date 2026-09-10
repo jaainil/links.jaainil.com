@@ -1,24 +1,31 @@
 # Link Style Studio
 
-make best looking link in bio website
+A high-craft, tactile link-in-bio website and portfolio hub for [Jainil Prajapati](https://jaainil.com), built as an interactive toy build-instruction booklet.
 
-This project was built with [Lovable](https://lovable.dev).
+## Features & Philosophy
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/07494f36-f90b-4bb3-8fde-c36301e97509).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **"The Instruction Booklet" Visual System**: Sky-blue pages, 2px keyline ink borders, hard offset shadows, Rubik typography, and colored brick pieces with dedicated roles.
+- **Pure Astro (Zero-React)**: 100% pre-rendered static HTML/CSS with zero client-side framework overhead.
+- **Tailwind CSS v4**: Theme tokens utilizing OKLCH color spaces and CSS custom properties.
+- **Handcrafted Artwork**: Custom dimetric SVG brick avatar and type-safe inline SVG icons.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Run locally with [Bun](https://bun.sh) (preferred) or Node.js / npm:
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
+
+# Build production static output (to dist/)
+bun run build
+
+# Preview static build
+bun run preview
+
+# Format code
+bun run format
 ```

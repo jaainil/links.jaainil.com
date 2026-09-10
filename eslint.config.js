@@ -14,7 +14,6 @@ export default tseslint.config(
       "bun.lock",
       ".agent/**",
       ".opencode/**",
-      ".lovable/**",
       ".gemini/**",
     ],
   },
