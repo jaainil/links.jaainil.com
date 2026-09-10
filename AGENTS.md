@@ -18,12 +18,18 @@ Operating guide and technical handbook for autonomous AI coding agents working o
 ### Core Principles: Pure Astro & Zero-React
 
 - **Framework**: **Astro 7.x** (`astro: "7.3.2"`), configured for pure static site generation (`output: "static"`).
+- **Domain & Canonical URL**: Production domain is **`https://links.jaainil.com`**, configured via `site: "https://links.jaainil.com"` in `astro.config.mjs`.
 - **Zero React Runtime**: **Do NOT introduce React, `@astrojs/react`, `react-dom`, or any client-side JavaScript framework.**
   - The entire site runs as lean, pre-rendered static HTML and CSS.
   - Interactivity and animations are driven by CSS and minimal vanilla TypeScript/JavaScript where essential.
 - **Styling**: **Tailwind CSS v4** (`tailwindcss: "^4.3.3"`) integrated via `@tailwindcss/vite` in `astro.config.mjs`.
   - Base configuration lives in `src/styles.css` using `@import "tailwindcss" source(none);` and `@source "../src";`.
   - CSS Custom Properties use modern `oklch()` color tokens under `@theme inline` and `:root`.
+- **Astro Integrations & SEO Architecture**:
+  - **`@astrojs/sitemap`**: Active integration in `astro.config.mjs` (`integrations: [sitemap()]`). Automatically builds `sitemap-index.xml` and `sitemap-0.xml` during static build without error pages.
+  - **`astro-seo`**: Standardized `<SEO />` component in `src/layouts/Layout.astro` providing automated canonical URLs, Open Graph tags (`og:title`, `og:image`, `og:url`, `og:site_name`), Twitter Card metadata (`summary_large_image`), and robot indexing controls.
+  - **JSON-LD Structured Data**: Schema.org graph markup (`ProfilePage`, `Person`, `WebSite`) passed via `structuredData` prop in `Layout.astro` and declared in `src/pages/index.astro`.
+  - **Crawler Assets**: `public/robots.txt` points to `https://links.jaainil.com/sitemap-index.xml`. Social previews use `public/og-image.png` (16:9 ratio).
 - **Typography**: Single typeface family: **Rubik Variable** (`400`, `500`, `700`, `800`, `900`). Loaded via Google Fonts in `src/layouts/Layout.astro`.
 - **Icons & Graphics**: Pure inline SVG components (`src/components/Icon.astro`) and handcrafted dimetric SVG brick artwork (`src/components/BrickPortrait.astro`). No heavy icon packages.
 - **Package Manager / Runtime**: **Bun** is the primary package manager (`bun.lock`), though standard `npm` commands remain supported.
@@ -83,14 +89,19 @@ link-style-studio/
 ├── DESIGN.md                  # Full Impeccable design system token reference
 ├── README.md                  # Human developer documentation
 ├── package.json               # Project dependencies and npm scripts
-├── astro.config.mjs           # Astro configuration (Vite Tailwind plugin)
+├── astro.config.mjs           # Astro config: @tailwindcss/vite + @astrojs/sitemap + site URL
 ├── tsconfig.json              # Strict TypeScript config (@/* path alias)
+├── public/
+│   ├── favicon.svg            # Handcrafted brick vector favicon
+│   ├── robots.txt             # Crawler instructions + sitemap pointer
+│   ├── og-image.png           # 16:9 instruction booklet social share card
+│   └── og-image.jpg           # Fallback JPEG social share image
 ├── src/
 │   ├── layouts/
-│   │   └── Layout.astro       # Root HTML document, SEO meta, font links
+│   │   └── Layout.astro       # Root HTML document, SEO integration (<SEO />), JSON-LD
 │   ├── pages/
-│   │   ├── index.astro        # Home / Link Hub page
-│   │   └── 404.astro          # Custom 404 instruction error sheet
+│   │   ├── index.astro        # Home / Link Hub page with ProfilePage structured data
+│   │   └── 404.astro          # Custom 404 instruction error sheet (noindex/canonical null)
 │   ├── components/
 │   │   ├── BrickPortrait.astro# Interactive dimetric SVG brick avatar
 │   │   └── Icon.astro         # Type-safe inline SVG icons (map-pin, github, etc.)
