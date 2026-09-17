@@ -48,6 +48,7 @@
   }
   html {
     scroll-behavior: smooth;
+    scrollbar-color: var(--piece-gray) var(--background);
   }
   body {
     margin: 0;
@@ -214,10 +215,6 @@
     transform 160ms ease,
     box-shadow 160ms ease;
 }
-.link-piece:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 0 var(--keyline);
-}
 .piece-number {
   display: grid;
   width: 47px;
@@ -227,6 +224,7 @@
   border: 2px solid var(--keyline);
   border-radius: 9px;
   font-weight: 900;
+  font-variant-numeric: tabular-nums;
 }
 .piece-blue {
   background: var(--primary);
@@ -255,9 +253,6 @@
   flex: none;
   transition: transform 160ms ease;
 }
-.link-piece:hover .piece-arrow {
-  transform: translate(2px, -2px);
-}
 
 .contact-sheet {
   display: flex;
@@ -281,10 +276,12 @@
   color: var(--primary-foreground);
   box-shadow: 0 3px 0 var(--keyline);
   font-weight: 900;
-  transition: transform 160ms ease;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
-.email-button:hover {
-  transform: translateY(-2px);
+.return-button {
+  background: var(--primary);
 }
 
 .astro-badge {
@@ -297,10 +294,8 @@
   overflow: hidden;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
-.astro-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 0 var(--keyline);
-}
+.link-piece:active,
+.email-button:active,
 .astro-badge:active {
   transform: translateY(1px);
   box-shadow: 0 2px 0 var(--keyline);
@@ -311,13 +306,63 @@
   height: auto;
 }
 
-@media (max-width: 520px) {
-  .brick-portrait {
-    width: 94px;
-    transform-origin: right center;
+@media (hover: hover) and (pointer: fine) {
+  .link-piece:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 var(--keyline);
   }
-  .brick-body {
-    width: 94px;
+  .link-piece:hover .piece-arrow {
+    transform: translate(2px, -2px);
+  }
+  .email-button:hover,
+  .astro-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--keyline);
+  }
+  .link-piece:active,
+  .email-button:active,
+  .astro-badge:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 var(--keyline);
+  }
+}
+
+@media (max-width: 639px) {
+  .profile-sheet {
+    grid-template-columns: minmax(0, 1fr) 122px;
+    column-gap: 16px;
+    row-gap: 0;
+  }
+  .profile-copy {
+    display: contents;
+  }
+  .profile-copy .status-chip {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .profile-copy h1 {
+    grid-column: 1 / -1;
+    font-size: clamp(2.75rem, 10vw, 3.75rem);
+  }
+  .profile-copy p {
+    grid-column: 1;
+  }
+  .profile-copy p:last-child {
+    grid-column: 1 / -1;
+  }
+  .profile-sheet .brick-portrait {
+    grid-column: 2;
+    grid-row: 3;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .link-piece {
+    gap: 10px;
+  }
+  .link-piece > .min-w-0 {
+    overflow-wrap: anywhere;
   }
   .piece-icon {
     display: none;
